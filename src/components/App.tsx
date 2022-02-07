@@ -1,10 +1,12 @@
 import React from 'react';
 import {SafeAreaView, Text} from 'react-native';
+import Input from '../features/input/Input';
 
 const App = () => {
   return (
     <SafeAreaView>
-      <Text>Test text</Text>
+      <Text>Title</Text>
+      <Input />
     </SafeAreaView>
   );
 };
