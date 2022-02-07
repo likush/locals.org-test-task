@@ -1,13 +1,23 @@
 import React from 'react';
-import {SafeAreaView, Text} from 'react-native';
-import Input from '../features/input/Input';
+import {NavigationContainer} from '@react-navigation/native';
+import {createNativeStackNavigator} from '@react-navigation/native-stack';
+import UserScreen from '../screens/userScreen/userScreen';
+import UsersList from '../screens/usersList/UsersList';
 
 const App = () => {
+  const Stack = createNativeStackNavigator();
+
   return (
-    <SafeAreaView>
-      <Text>Title</Text>
-      <Input />
-    </SafeAreaView>
+    <NavigationContainer>
+      <Stack.Navigator>
+        <Stack.Screen
+          name="UsersList"
+          component={UsersList}
+          options={{headerShown: false}}
+        />
+        <Stack.Screen name="User" component={UserScreen} />
+      </Stack.Navigator>
+    </NavigationContainer>
   );
 };
 
