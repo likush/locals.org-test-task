@@ -1,11 +1,9 @@
 import {configureStore} from '@reduxjs/toolkit';
 import {TypedUseSelectorHook, useDispatch, useSelector} from 'react-redux';
-import querySlice from '../features/querySlice';
 import {apiSlice} from '../features/api/apiSlice.js';
 
 const store = configureStore({
   reducer: {
-    query: querySlice.reducer,
     [apiSlice.reducerPath]: apiSlice.reducer,
   },
   middleware: getDefaultMiddleware =>

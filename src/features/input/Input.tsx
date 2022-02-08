@@ -1,24 +1,27 @@
 import React from 'react';
 import {TextInput} from 'react-native';
 import styled from 'styled-components';
-import {useDispatch, useSelector} from 'react-redux';
-import {selectQuery, setValue} from '../querySlice';
 
-const BaseInput = () => {
-  const dispatch = useDispatch();
-  const selector = useSelector(selectQuery);
+type BaseInputProps = {
+  value: string;
+  onChange(value: string): void;
+};
+
+const BaseInput = (props: BaseInputProps) => {
+  const {onChange, value} = props;
 
   return (
-    <TextInput
-      placeholder="Place your Text"
-      onChangeText={nextValue => dispatch(setValue(nextValue))}
-      value={selector}
-    />
+    <Input placeholder="Enter value" onChangeText={onChange} value={value} />
   );
 };
 
-const Input = styled(BaseInput)`
-  color: palevioletred;
+const Input = styled(TextInput)`
+  width: 100%;
+  border-width: 1px;
+  border-color: darkseagreen;
+  border-radius: 6px;
+  padding: 10px;
+  background-color: #ffffff;
 `;
 
-export default Input;
+export default BaseInput;
