@@ -17,8 +17,6 @@ export type UserResponseType = {
   blog: string;
 };
 
-export type AllUsersResponseType = Array<UserResponseType>;
-
 export const apiSlice = createApi({
   reducerPath: 'api',
   baseQuery: fetchBaseQuery({baseUrl}),
