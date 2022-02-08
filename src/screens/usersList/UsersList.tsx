@@ -14,6 +14,7 @@ const renderContent = (isLoading: boolean, data: any, navigation: any) => {
       <ScrollView>
         {data.map((item: UserResponseType) => (
           <UserListItem
+            key={item.id}
             data={item}
             onPress={() => navigateToUser(navigation, item)}
           />
@@ -26,7 +27,7 @@ const renderContent = (isLoading: boolean, data: any, navigation: any) => {
 };
 
 const navigateToUser = (navigation: any, item: UserResponseType) => {
-  navigation.navigate('User', {data: item});
+  navigation.navigate('User', {login: item.login});
 };
 
 const UsersList = (props: any) => {
