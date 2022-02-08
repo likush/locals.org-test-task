@@ -1,11 +1,5 @@
 import React from 'react';
-import {
-  ActivityIndicator,
-  Linking,
-  Text,
-  TouchableOpacity,
-  View,
-} from 'react-native';
+import {Linking, Text, TouchableOpacity, View} from 'react-native';
 import {
   faBuilding,
   faLink,
@@ -18,7 +12,6 @@ import {FontAwesomeIcon} from '@fortawesome/react-native-fontawesome';
 import {RouteProp} from '@react-navigation/native';
 import styled from 'styled-components';
 import Avatar from '../../components/Avatar';
-import {useGetUserQuery} from '../../features/api/apiSlice.js';
 
 type UserScreenPropsType = {
   navigation: any;
@@ -53,52 +46,41 @@ const handlePress = (url: string) => {
   return Linking.openURL(url);
 };
 
-const renderContent = (isLoading: boolean, data: any) => {
-  if (!isLoading && data) {
-    const {
-      avatar_url,
-      name,
-      login,
-      html_url,
-      company,
-      location,
-      bio,
-      blog,
-      public_repos,
-    } = data;
-    const loginText = `@${login}`;
-
-    return (
-      <Container>
-        <RowContent>
-          <Avatar uri={avatar_url} size={80} />
-          <NameContent>
-            <Name>{name}</Name>
-            <Login>{loginText}</Login>
-          </NameContent>
-        </RowContent>
-        <Content>
-          {renderInfoItem('Bio', bio, faComment)}
-          {renderInfoItem('Company', company, faBuilding)}
-          {renderInfoLink('Location', location, faGlobe)}
-          {renderInfoLink('Blog', blog, faLink)}
-          {renderInfoLink('GitHub', html_url, faCodeBranch)}
-          <Text>{`Repositories: ${public_repos}`}</Text>
-        </Content>
-      </Container>
-    );
-  } else if (isLoading) {
-    return <Loader size="large" />;
-  }
-};
-
 const UserScreen = (props: UserScreenPropsType) => {
-  const userLogin = props.route?.params?.login;
+  const user = props.route?.params?.user;
 
-  console.log(props.route?.params);
-  const {data, isLoading} = useGetUserQuery(userLogin);
+  const {
+    avatar_url,
+    name,
+    login,
+    html_url,
+    company,
+    location,
+    bio,
+    blog,
+    public_repos,
+  } = user;
+  const loginText = `@${login}`;
 
-  return <View>{renderContent(isLoading, data)}</View>;
+  return (
+    <Container>
+      <RowContent>
+        <Avatar uri={avatar_url} size={80} />
+        <NameContent>
+          <Name>{name}</Name>
+          <Login>{loginText}</Login>
+        </NameContent>
+      </RowContent>
+      <Content>
+        {renderInfoItem('Bio', bio, faComment)}
+        {renderInfoItem('Company', company, faBuilding)}
+        {renderInfoLink('Location', location, faGlobe)}
+        {renderInfoLink('Blog', blog, faLink)}
+        {renderInfoLink('GitHub', html_url, faCodeBranch)}
+        <Text>{`Repositories: ${public_repos}`}</Text>
+      </Content>
+    </Container>
+  );
 };
 
 export default UserScreen;
@@ -140,16 +122,6 @@ const InfoContent = styled(RowContent)`
 const InfoText = styled(Text)`
   flex: 1;
   flex-wrap: wrap;
-`;
-
-const Loader = styled(ActivityIndicator)`
-  position: absolute;
-  left: 0;
-  right: 0;
-  top: 0;
-  bottom: 0;
-  align-items: center;
-  justify-content: center;
 `;
 
 const Icon = styled(FontAwesomeIcon)`

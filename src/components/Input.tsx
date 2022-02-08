@@ -11,7 +11,11 @@ const BaseInput = (props: BaseInputProps) => {
   const {onChange, value} = props;
 
   return (
-    <Input placeholder="Enter value" onChangeText={onChange} value={value} />
+    <Input
+      placeholder="Enter something like Octocat..."
+      onChangeText={onChange}
+      value={value}
+    />
   );
 };
 

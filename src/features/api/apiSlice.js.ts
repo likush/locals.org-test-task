@@ -14,8 +14,6 @@ export type UserResponseType = {
   avatar_url: string;
   company: string;
   email: string;
-  following_url: string;
-  followers_url: string;
   blog: string;
 };
 
@@ -31,13 +29,7 @@ export const apiSlice = createApi({
         headers,
       }),
     }),
-    getAllUsers: builder.query<AllUsersResponseType, void>({
-      query: () => ({
-        url: '/users',
-        headers,
-      }),
-    }),
   }),
 });
 
-export const {useGetUserQuery, useGetAllUsersQuery} = apiSlice;
+export const {useGetUserQuery} = apiSlice;

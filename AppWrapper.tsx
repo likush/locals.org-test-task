@@ -1,7 +1,7 @@
 import React from 'react';
 import {Provider} from 'react-redux';
 import store from './src/stores/store';
-import App from './src/components/App';
+import App from './App';
 
 const AppWrapper = () => {
   return (
