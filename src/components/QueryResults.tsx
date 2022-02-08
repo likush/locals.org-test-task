@@ -9,9 +9,10 @@ import Avatar from './Avatar';
 import React from 'react';
 import styled from 'styled-components';
 import {useGetUserQuery} from '../features/api/apiSlice.js';
+import {UserType} from '../../types';
 
 type QueryResultPropsType = {
-  navigateToUser: (user: any) => void;
+  navigateToUser: (user: UserType) => void;
   query: string;
 };
 

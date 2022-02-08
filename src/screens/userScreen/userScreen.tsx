@@ -14,7 +14,6 @@ import styled from 'styled-components';
 import Avatar from '../../components/Avatar';
 
 type UserScreenPropsType = {
-  navigation: any;
   route: RouteProp<any>;
 };
 

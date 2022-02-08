@@ -4,6 +4,7 @@ import {useDebounce} from 'use-debounce';
 import styled from 'styled-components';
 import Input from '../../components/Input';
 import QueryResult from '../../components/QueryResults';
+import {UserType} from '../../../types';
 
 const HomeScreen = (props: any) => {
   const {navigation} = props;
@@ -11,8 +12,8 @@ const HomeScreen = (props: any) => {
   const [query, setQuery] = useState('');
   const [debouncedQuery] = useDebounce(query, 1000);
 
-  const navigateToUser = (userData: any) =>
-    navigation.navigate('User', userData);
+  const navigateToUser = (user: UserType) =>
+    navigation.navigate('User', {user});
 
   return (
     <Container>
