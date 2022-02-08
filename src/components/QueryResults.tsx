@@ -20,9 +20,28 @@ const octocatImage = 'https://avatars.githubusercontent.com/u/583231?v=4';
 
 const QueryResult = (props: QueryResultPropsType) => {
   const {query, navigateToUser} = props;
-  const {data, isLoading} = useGetUserQuery(query);
+  const {data, isLoading, isUninitialized, isError} = useGetUserQuery(query, {
+    skip: query.length === 0,
+  });
 
-  if (!isLoading && data) {
+  if (isLoading) {
+    return <Loader size="large" />;
+  } else if (isError) {
+    return (
+      <WarningContent>
+        <WarningText>Something went wrong</WarningText>
+      </WarningContent>
+    );
+  } else if (isUninitialized || !data) {
+    return (
+      <WarningContent>
+        <OctocatImage source={{uri: octocatImage}} />
+        <WarningText>
+          Nothing to show. Enter something in input, please
+        </WarningText>
+      </WarningContent>
+    );
+  } else if (data) {
     const {avatar_url, login, html_url} = data;
 
     return (
@@ -33,17 +52,6 @@ const QueryResult = (props: QueryResultPropsType) => {
           <Repository>{html_url}</Repository>
         </Info>
       </UserContent>
-    );
-  } else if (isLoading) {
-    return <Loader size="large" />;
-  } else if (!isLoading && !data) {
-    return (
-      <EmptyContent>
-        <OctocatImage source={{uri: octocatImage}} />
-        <EmptyContentText>
-          Nothing to show. Enter something in input, please
-        </EmptyContentText>
-      </EmptyContent>
     );
   } else {
     return null;
@@ -85,7 +93,7 @@ const Repository = styled(Text)`
   color: #606060;
 `;
 
-const EmptyContent = styled(View)`
+const WarningContent = styled(View)`
   align-items: center;
   justify-content: center;
   width: 100%;
@@ -99,6 +107,6 @@ const OctocatImage = styled(Image)`
   margin-bottom: 16px;
 `;
 
-const EmptyContentText = styled(Text)`
+const WarningText = styled(Text)`
   color: #606060;
 `;
