@@ -1,6 +1,7 @@
 import React from 'react';
-import {View, Image, Text, TouchableOpacity} from 'react-native';
+import {View, Text, TouchableOpacity} from 'react-native';
 import styled from 'styled-components';
+import Avatar from './Avatar';
 import {UserResponseType} from '../features/api/apiSlice.js';
 
 type UserListItemProps = {
@@ -14,11 +15,11 @@ const UserListItem = (props: UserListItemProps) => {
 
   return (
     <ContainerButton onPress={onPress}>
-      <Avatar source={{uri: avatar_url}} />
-      <View>
+      <Avatar uri={avatar_url} size={80} />
+      <Info>
         <Name>{login}</Name>
         <Repository>{html_url}</Repository>
-      </View>
+      </Info>
     </ContainerButton>
   );
 };
@@ -33,11 +34,8 @@ const ContainerButton = styled(TouchableOpacity)`
   align-items: center;
 `;
 
-const Avatar = styled(Image)`
-  width: 80px;
-  height: 80px;
-  margin-right: 20px;
-  border-radius: 50px;
+const Info = styled(View)`
+  margin-left: 20px;
 `;
 
 const Name = styled(Text)`
